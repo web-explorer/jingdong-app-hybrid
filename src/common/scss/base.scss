@@ -1,0 +1,16 @@
+@import "variable";
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  overflow: hidden;
+  color: $color-text;
+  /* 不允许去选中文本 */
+  user-select: none;
+}

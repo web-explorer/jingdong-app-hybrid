@@ -1,0 +1,23 @@
+@import "variable";
+
+.gt-2-line-hide-text-with-dots {
+overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
+.activity {
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: $font-size-medium;
+  color: #fff;
+  font-weight: 500;
+}
+.activity.self-run {
+  background-color: #ec5a48;
+}
+.activity.vip-special-offer {
+  background-color: #0084ff;
+}
