@@ -1,11 +1,16 @@
 <template>
     <div class="shopping">
-        shopping
+        <navigation-bar :isShowBack="false" pageName="购物车"></navigation-bar>
     </div>
 </template>
 
 <script>
+    import NavigationBar from '@/components/navigation-bar/navigation-bar.vue'
+
     export default {
+        components: {
+            NavigationBar
+        },
         name: "shopping"
     }
 </script>

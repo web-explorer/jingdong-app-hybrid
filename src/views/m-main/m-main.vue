@@ -17,7 +17,7 @@
     export default {
         data() {
             return {
-                currentComponent: 'home'
+                currentComponent: 'Home'
             }
         },
         methods: {
@@ -40,13 +40,20 @@
 
     .m-main {
         height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         background-color: $color-background-d;
+        position: relative;
         .component-wrapper {
-            height: 100%;
-            flex: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 46px;
+            left: 0;
+        }
+        .tool-bar-wrapper {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
         }
     }
 </style>

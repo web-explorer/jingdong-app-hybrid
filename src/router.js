@@ -12,6 +12,16 @@ export default new Router({
       path: '/',
       name: 'm-main',
       component: MMain
+    },
+    {
+      path: '/searchResult',
+      name: 'search-result',
+      component: () => import(/* webpackChunkName: "search-result" */ '@/views/search-result/search-result.vue')
+    },
+    {
+      path: '/goodsDetail',
+      name: 'goods-detail',
+      component: () => import(/* webpackChunkName: "goods-detail" */ '@/views/goods-detail/goods-detail.vue')
     }
   ]
 })

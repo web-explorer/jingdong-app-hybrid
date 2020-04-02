@@ -11,7 +11,7 @@ import '@/common/scss/index.scss'
 import '@/common/js/axios.config.js'
 import '@/common/js/filters.js'
 
-import $ from 'jquery'
+import 'jquery'
 
 Vue.config.productionTip = false
 

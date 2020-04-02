@@ -1,7 +1,7 @@
 @import "variable";
 
 .gt-2-line-hide-text-with-dots {
-overflow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
   -webkit-line-clamp: 2;
@@ -20,4 +20,7 @@ overflow: hidden;
 }
 .activity.vip-special-offer {
   background-color: #0084ff;
+}
+.z-index-max {
+  z-index: 10000;
 }

@@ -1,11 +1,13 @@
 <template>
     <div :style="{'height': waterfallHeight + 'px'}" class="waterfall" ref="waterfall">
-        <div class="waterfall-item" v-for="(item, index) in goodsList" :key="index" ref="goodsItems" :style="{'width': itemWidth + 'px', 'left': item.left + 'px', 'top': item.top + 'px'}" :class="{show: item.visible}">
+        <div @click="onClickGoods(item)" class="waterfall-item" v-for="(item, index) in goodsList" :key="index" ref="goodsItems" :style="{'width': itemWidth + 'px', 'left': item.left + 'px', 'top': item.top + 'px'}" :class="{show: item.visible}">
             <img class="waterfall-item-img" :src="item.pic">
             <div class="waterfall-item-desc">
-                <p class="waterfall-item-desc-name gt-2-line-hide-text-with-dots">
+                <p class="waterfall-item-desc-name gt-2-line-hide-text-with-dots" :class="{'waterfall-item-desc-grey': !item.isHave}">
                     <!-- 是否为直营 -->
+                    <direct v-if="item.isDirect"></direct>
                     <!-- 是否有库存 -->
+                    <no-have v-if="!item.isHave"></no-have>
                     {{item.name}}
                 </p>
                 <div class="waterfall-item-desc-data">
@@ -22,10 +24,20 @@
 </template>
 
 <script>
+    import Direct from '@/components/direct/direct.vue'
+    import NoHave from '@/components/no-have/no-have.vue'
+
     export default {
+        props: {
+            goodsList: {
+                type: Array,
+                default() {
+                    return []
+                }
+            }
+        },
         data() {
             return {
-                goodsList: [],
                 columns: 2,
                 itemMargin: 5,
                 waterfallHeight: 0,
@@ -34,6 +46,9 @@
             }
         },
         methods: {
+            onClickGoods(goods) {
+                this.$emit('clickGoods', goods);
+            },
             waterfall() {
                 this.$refs.goodsItems.forEach((item, index) => {
                     let minHeightIndex = 0;
@@ -54,67 +69,22 @@
                     }
                 }
                 this.waterfallHeight = this.columnHeights[maxHeightIndex]
-            },
-            _getGoodsData() {
-                this.$http.get('/goods').then(res => {
-                    if(res.state == 0){
-                        this.goodsList = this.normalizeGoodsData(res.data.list)
-                        this.p = setInterval(() => {
-                            if(this.$refs.goodsItems && this.$refs.goodsItems.length){
-                                let allGoodsItemHasHeight = true
-                                for(let i=0; i<this.$refs.goodsItems.length; i++){
-                                    if(!this.$refs.goodsItems[i].offsetHeight){
-                                        allGoodsItemHasHeight = false
-                                        break
-                                    }
-                                }
-                                if(allGoodsItemHasHeight){
-                                    this.waterfall()
-                                    clearInterval(this.p)
-                                }
-                            }
-                        }, 20)
-                    }else{
-                        alert(res.msg)
-                    }
-                })
-            },
-            normalizeGoodsData(goodsData) {
-                let goodsList = []
-                for(let i=0; i<goodsData.length; i++){
-                    let goods = {}
-                    goods.pic = goodsData[i].img
-                    goods.name = goodsData[i].name
-                    goods.price = goodsData[i].price
-                    goods.volume = goodsData[i].volume
-                    goods.visible = false
-                    let tmpNum = Math.random();
-                    if(tmpNum >= 0 && tmpNum < 0.25){
-                        goods.selfRun = true
-                        goods.vipSpecialOffer = true
-                    }else if(tmpNum >= 0.25 && tmpNum < 0.5){
-                        goods.selfRun = true
-                        goods.vipSpecialOffer = false
-                    }else if(tmpNum >= 0.5 && tmpNum < 0.75){
-                        goods.selfRun = false
-                        goods.vipSpecialOffer = true
-                    }else{
-                        goods.selfRun = false
-                        goods.vipSpecialOffer = false
-                    }
-                    goodsList.push(goods)
-                }
-                return goodsList
             }
         },
         mounted() {
             this.itemWidth = Math.floor(this.$refs.waterfall.offsetWidth / this.columns - 2 * this.itemMargin)
+            setTimeout(() => {
+                this.waterfall()
+            }, 20)
         },
         created() {
             for(let i=0; i<this.columns; i++){
                 this.columnHeights.push(0)
             }
-            this._getGoodsData()
+        },
+        components: {
+            Direct,
+            NoHave
         },
         name: "waterfall"
     }
@@ -132,20 +102,31 @@
             position: absolute;
             left: 0;
             top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             &-img {
-                width: 3.5rem;
-                height: 3.5rem;
+                width: 131.25px;
+                height: 131.25px;
             }
             &-desc {
                 margin-top: 10px;
                 font-size: $font-size-medium;
                 &-name {
                     font-weight: 500;
+                    line-height: 20px;
+                }
+                &-grey {
+                    color: $color-text-l;
                 }
                 &-data {
                     margin-top: 8px;
                     display: flex;
                     justify-content: space-between;
+                    &-price {
+                        color: #f00;
+                        font-size: $font-size-medium-m;
+                    }
                 }
                 &-activity {
                     margin-top: 8px;

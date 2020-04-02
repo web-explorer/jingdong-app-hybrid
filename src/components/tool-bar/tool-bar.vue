@@ -16,19 +16,19 @@
                         nIcon: require('@/common/images/home-n.svg'),
                         hIcon: require('@/common/images/home-h.svg'),
                         name: '首页',
-                        componentName: 'home'
+                        componentName: 'Home'
                     },
                     {
                         nIcon: require('@/common/images/shopping-n.svg'),
                         hIcon: require('@/common/images/shopping-h.svg'),
                         name: '购物车',
-                        componentName: 'shopping'
+                        componentName: 'Shopping'
                     },
                     {
                         nIcon: require('@/common/images/my-n.svg'),
                         hIcon: require('@/common/images/my-h.svg'),
                         name: '我的',
-                        componentName: 'my'
+                        componentName: 'My'
                     }
                 ],
                 selectItemIndex: 0
@@ -36,6 +36,9 @@
         },
         methods: {
             onChangeToolBar(item, index) {
+                if(this.selectItemIndex == index){
+                    return
+                }
                 this.selectItemIndex = index
                 this.$emit('changeToolBar', item.componentName)
             }

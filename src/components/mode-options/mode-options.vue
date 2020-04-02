@@ -1,6 +1,6 @@
 <template>
     <div class="mode-options">
-        <a v-for="(modeOption, index) in modeOptions" :key="index" :href="modeOption.linkUrl" class="mode-options-item">
+        <a v-for="(modeOption, index) in modeOptions" :key="index" :href="modeOption.linkUrl" class="mode-options-item" @click="jump">
             <img class="mode-options-item-img" :src="modeOption.imgUrl">
             <p class="mode-options-item-title">{{modeOption.title}}</p>
         </a>
@@ -63,6 +63,11 @@
                         title: '全部'
                     }
                 ]
+            }
+        },
+        methods: {
+            jump() {
+                this.$router.push('/searchResult')
             }
         },
         name: "mode-options"
