@@ -36,11 +36,15 @@
             hasControl: {
                 type: Boolean,
                 default: false
+            },
+            paginationType: {
+                type: String,
+                default: ''
             }
         },
         computed: {
             swiperOption() {
-                return {
+                let opts = {
                     loop: true,
                     autoplay: {
                         delay: this.interval,
@@ -49,12 +53,14 @@
                     pagination: {
                         el: '.swiper-pagination',
                         clickable: true,
+                        type: this.paginationType ? this.paginationType : 'bullets'
                     },
                     navigation: {
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev',
                     }
                 }
+                return opts
             }
         },
         methods: {
@@ -79,10 +85,6 @@
 /*
 当轮播图片的宽度大于.swiper-container的宽度时，需要给轮播图片设置如下样式
 */
-/*.swiper-container>.swiper-wrapper>.swiper-slide>a {
-    display: block;
-    width: 100%;
-}*/
 .swiper-container>.swiper-wrapper>.swiper-slide>a>img {
     width: 100%;
 }

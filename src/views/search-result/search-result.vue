@@ -2,7 +2,7 @@
     <div class="search-result">
         <navigation-bar @back="onBack" pageName="商品列表">
             <template v-slot:nav-right>
-                <img @click="changeLayout" :src="layoutTypeImg"></img>
+                <img @click="changeLayout" :src="layoutTypeImg"/>
             </template>
         </navigation-bar>
         <div class="sort-options-wrapper">
@@ -69,7 +69,7 @@
             },
             onBack() {
                 // 返回上一页
-                this.$router.go(-1)
+                this.$router.back();
             },
             _getGoodsData() {
                 this.$http.get('/goods').then(res => {
@@ -85,9 +85,12 @@
                 let goodsList = []
                 for(let i=0; i<goodsData.length; i++){
                     let goods = {}
+                    goods.id = goodsData[i].id
                     goods.isDirect = goodsData[i].isDirect
                     goods.isHave = goodsData[i].isHave
                     goods.pic = goodsData[i].img
+                    goods.swiperPics = goodsData[i].swiperImgs
+                    goods.detailPics = goodsData[i].detailImgs
                     goods.name = goodsData[i].name
                     goods.price = goodsData[i].price
                     goods.volume = goodsData[i].volume

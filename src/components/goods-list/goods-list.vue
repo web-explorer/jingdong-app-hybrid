@@ -26,7 +26,16 @@
         },
         methods: {
             goGoodsDetail(goods) {
-                console.log(goods);
+                if (!goods.isHave) {
+                    alert('该商品无库存');
+                    return;
+                }
+                this.$router.push({
+                   name: 'goods-detail',
+                   params: {
+                       goods
+                   }
+                });
             }
         },
         components: {
