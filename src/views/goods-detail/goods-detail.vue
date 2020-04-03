@@ -1,11 +1,15 @@
 <template>
     <div class="goods-detail">
-        <navigation-bar :navBarStyle="navBarStyle" :isShowBack="false">
+        <navigation-bar :style="{'background-color': navigationBarBg}" :navBarStyle="navBarStyle" :isShowBack="false">
             <template v-slot:nav-left>
-                <img @click="back" src="@/common/images/back-2.svg"/>
+                <img :style="{opacity: 1 - backWhiteOpacity}" class="nav-left-img" @click="back" src="@/common/images/back-2.svg"/>
+                <img :style="{opacity: backWhiteOpacity}" class="nav-left-img" @click="back" src="@/common/images/back-white.svg"/>
+            </template>
+            <template v-slot:nav-center>
+                <span class="page-title" :style="{opacity: navigationBarTitleOpacity}">商品详情</span>
             </template>
         </navigation-bar>
-        <div class="goods-detail-body">
+        <div class="goods-detail-body" @scroll="onScroll">
             <carrousel v-if="goods && goods.swiperPics" :sliderList="swiperList"></carrousel>
             <div class="goods-detail-body-content">
                 <div class="goods-detail-body-content-outline">
@@ -50,7 +54,7 @@
               goods: null,
               navBarStyle: {
                   position: 'fixed',
-                  backgroundColor: 'rgba(255, 255, 255, .0)'
+                  backgroundColor: 'rgb(216, 30, 6)'
               },
               supports: [
                   '可配送海外',
@@ -59,10 +63,15 @@
                   '211限时达',
                   '可自提',
                   '不可使用优惠券'
-              ]
+              ],
+              scrollTopValue: 0,
+              ANCHOR_SCROLL_TOP: 375
           }
         },
         methods: {
+            onScroll(e) {
+                this.scrollTopValue = e.target.scrollTop
+            },
             back() {
                 this.$router.back();
             }
@@ -72,6 +81,27 @@
                 return this.goods.swiperPics.map(item => {
                     return {picUrl: item}
                 })
+            },
+            backWhiteOpacity() {
+                if (this.scrollTopValue < this.ANCHOR_SCROLL_TOP) {
+                    return this.scrollTopValue / this.ANCHOR_SCROLL_TOP
+                } else {
+                    return 1
+                }
+            },
+            navigationBarBg() {
+                if (this.scrollTopValue < this.ANCHOR_SCROLL_TOP) {
+                    return `rgba(216, 30, 6, ${this.scrollTopValue / this.ANCHOR_SCROLL_TOP})`
+                } else {
+                    return 'rgb(216, 30, 6)'
+                }
+            },
+            navigationBarTitleOpacity() {
+                if (this.scrollTopValue < this.ANCHOR_SCROLL_TOP) {
+                    return this.scrollTopValue / this.ANCHOR_SCROLL_TOP
+                } else {
+                    return 1
+                }
             }
         },
         created() {
@@ -128,7 +158,7 @@
             flex-direction: column;
             &-content {
                 &-outline {
-                    margin-bottom: 15px;
+                    margin-bottom: 10px;
                     font-size: $font-size-large;
                     line-height: 22px;
                     background-color: #fff;
@@ -196,5 +226,14 @@
         &-body::-webkit-scrollbar {
             display: none;
         }
+    }
+    .page-title {
+        color: #fff;
+    }
+    .nav-left-img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 </style>

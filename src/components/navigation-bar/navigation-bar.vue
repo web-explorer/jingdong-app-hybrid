@@ -53,6 +53,7 @@
         justify-content: space-between;
         align-items: center;
         .left, .right {
+            position: relative;
             height: 100%;
             width: 44px;
             display: flex;
