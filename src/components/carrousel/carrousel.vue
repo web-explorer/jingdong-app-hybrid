@@ -88,6 +88,9 @@
 .swiper-container>.swiper-wrapper>.swiper-slide>a>img {
     width: 100%;
 }
+.swiper-container>.swiper-wrapper>.swiper-slide>a {
+    display: flex;
+}
 /*
 当轮播图片的宽度小于.swiper-container的宽度时，需要手动添加css使.swiper-container的宽度等于轮播图片的宽度
 */

@@ -27,12 +27,13 @@
         methods: {
             goGoodsDetail(goods) {
                 if (!goods.isHave) {
-                    alert('该商品无库存');
-                    return;
+                    alert('该商品无库存')
+                    return
                 }
                 this.$router.push({
                    name: 'goods-detail',
                    params: {
+                       jumpType: 1,
                        goods
                    }
                 });

@@ -67,7 +67,12 @@
         },
         methods: {
             jump() {
-                this.$router.push('/searchResult')
+                this.$router.push({
+                    name: 'search-result',
+                    params: {
+                        jumpType: 1
+                    }
+                })
             }
         },
         name: "mode-options"

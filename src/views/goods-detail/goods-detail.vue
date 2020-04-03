@@ -9,33 +9,37 @@
                 <span class="page-title" :style="{opacity: navigationBarTitleOpacity}">商品详情</span>
             </template>
         </navigation-bar>
-        <div class="goods-detail-body" @scroll="onScroll">
-            <carrousel v-if="goods && goods.swiperPics" :sliderList="swiperList"></carrousel>
-            <div class="goods-detail-body-content">
-                <div class="goods-detail-body-content-outline">
-                    <p class="goods-detail-body-content-outline-price">￥{{goods.price}}</p>
-                    <p class="goods-detail-body-content-outline-name">
-                        <direct v-if="goods.isDirect"></direct>
-                        {{goods.name}}
-                    </p>
-                </div>
-                <div class="goods-detail-body-content-detail">
-                    <div class="goods-detail-body-content-detail-choose">
-                        <p class="goods-detail-body-content-detail-choose-mark">已选</p>
-                        <p class="goods-detail-body-content-detail-choose-name gt-1-line-hide-text-with-dots">{{goods.name}}</p>
+        <parallax class="goods-detail-body" @parallaxScroll="onParallaxScroll">
+            <template v-slot:parallax-slow>
+                <carrousel v-if="goods && goods.swiperPics" :sliderList="swiperList"></carrousel>
+            </template>
+            <template v-slot:parallax-normal>
+                <div class="goods-detail-body-content">
+                    <div class="goods-detail-body-content-outline">
+                        <p class="goods-detail-body-content-outline-price">￥{{goods.price}}</p>
+                        <p class="goods-detail-body-content-outline-name">
+                            <direct v-if="goods.isDirect"></direct>
+                            {{goods.name}}
+                        </p>
                     </div>
-                    <ul class="goods-detail-body-content-detail-supports">
-                        <li v-for="support in supports" class="goods-detail-body-content-detail-supports-item">
-                            <img class="goods-detail-body-content-detail-supports-item-pic" src="@/common/images/support.svg">
-                            <span class="goods-detail-body-content-detail-supports-item-text">{{support}}</span>
-                        </li>
-                    </ul>
+                    <div class="goods-detail-body-content-detail">
+                        <div class="goods-detail-body-content-detail-choose">
+                            <p class="goods-detail-body-content-detail-choose-mark">已选</p>
+                            <p class="goods-detail-body-content-detail-choose-name gt-1-line-hide-text-with-dots">{{goods.name}}</p>
+                        </div>
+                        <ul class="goods-detail-body-content-detail-supports">
+                            <li v-for="support in supports" class="goods-detail-body-content-detail-supports-item">
+                                <img class="goods-detail-body-content-detail-supports-item-pic" src="@/common/images/support.svg">
+                                <span class="goods-detail-body-content-detail-supports-item-text">{{support}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="goods-detail-body-content-detail-pics">
+                        <img class="goods-detail-body-content-detail-pics-item" v-for="detailPic in goods.detailPics" :src="detailPic">
+                    </div>
                 </div>
-                <div class="goods-detail-body-content-detail-pics">
-                    <img class="goods-detail-body-content-detail-pics-item" v-for="detailPic in goods.detailPics" :src="detailPic">
-                </div>
-            </div>
-        </div>
+            </template>
+        </parallax>
         <div class="goods-detail-footer">
             <div class="goods-detail-footer-btn add-cart">加入购物车</div>
             <div class="goods-detail-footer-btn buy-now">立即购买</div>
@@ -47,14 +51,14 @@
     import NavigationBar from '@/components/navigation-bar/navigation-bar.vue'
     import Carrousel from '@/components/carrousel/carrousel'
     import Direct from '@/components/direct/direct.vue'
+    import Parallax from '@/components/parallax/parallax.vue'
 
     export default {
         data() {
           return {
               goods: null,
               navBarStyle: {
-                  position: 'fixed',
-                  backgroundColor: 'rgb(216, 30, 6)'
+                  position: 'fixed'
               },
               supports: [
                   '可配送海外',
@@ -69,8 +73,8 @@
           }
         },
         methods: {
-            onScroll(e) {
-                this.scrollTopValue = e.target.scrollTop
+            onParallaxScroll(scrollTop) {
+                this.scrollTopValue = scrollTop
             },
             back() {
                 this.$router.back();
@@ -110,7 +114,8 @@
         components: {
             NavigationBar,
             Carrousel,
-            Direct
+            Direct,
+            Parallax
         },
         name: "goods-detail"
     }
@@ -120,8 +125,9 @@
     @import "./../../common/scss/variable";
 
     .goods-detail {
+        width: 100%;
         height: 100%;
-        position: relative;
+        position: absolute;
         &-footer {
             position: absolute;
             width: 100%;
@@ -149,7 +155,6 @@
         }
         &-body {
             overflow-y: auto;
-            background-color: $color-background-d;
             position: absolute;
             top: 0;
             bottom: 52px;
@@ -157,6 +162,7 @@
             display: flex;
             flex-direction: column;
             &-content {
+                background-color: $color-background-d;
                 &-outline {
                     margin-bottom: 10px;
                     font-size: $font-size-large;

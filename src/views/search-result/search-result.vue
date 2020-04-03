@@ -128,8 +128,9 @@
 
 <style lang="scss" scoped>
     .search-result {
+        width: 100%;
         height: 100%;
-        position: relative;
+        position: absolute;
         .sort-options-wrapper {
             position: absolute;
             top: 44px;

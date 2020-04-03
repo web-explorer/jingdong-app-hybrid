@@ -39,9 +39,10 @@
     @import "./../../common/scss/variable";
 
     .m-main {
+        width: 100%;
         height: 100%;
         background-color: $color-background-d;
-        position: relative;
+        position: absolute;
         .component-wrapper {
             position: absolute;
             top: 0;
