@@ -39,7 +39,7 @@
             },
             paginationType: {
                 type: String,
-                default: ''
+                default: 'fraction'
             }
         },
         computed: {
@@ -98,5 +98,23 @@
 }
 >>> .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background: rgba(255,255,255,0.8);
+}
+>>> .swiper-pagination-fraction {
+    left: auto;
+    right: 0;
+    bottom: 37.5px;
+    width: auto;
+    background-color: rgba(0, 0, 0, .3);
+    color: #fff;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    width: 76px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+>>> .swiper-pagination-current {
+    font-weight: bold;
+    font-size: 16px;
 }
 </style>

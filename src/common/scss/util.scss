@@ -8,6 +8,14 @@
   -webkit-box-orient: vertical;
   display: -webkit-box;
 }
+.gt-1-line-hide-text-with-dots {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
 .activity {
   padding: 6px 12px;
   border-radius: 5px;
