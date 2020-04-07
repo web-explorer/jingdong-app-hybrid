@@ -8,7 +8,7 @@
         <div class="sort-options-wrapper">
             <sort-options @sort="onSort"></sort-options>
         </div>
-        <div class="goods-list-wrapper">
+        <div class="goods-list-wrapper" ref="goodsListWrapper" @scroll="onScroll">
             <goods-list v-if="goodsList.length" :goodsList="goodsList" :layout="layoutTypes[layoutIndex]"></goods-list>
         </div>
     </div>
@@ -24,7 +24,8 @@
             return {
                 layoutTypes: ['row', 'grid', 'waterfall'],
                 layoutIndex: 0,
-                goodsList: []
+                goodsList: [],
+                scrollTopValue: 0
             }
         },
         computed: {
@@ -33,6 +34,9 @@
             }
         },
         methods: {
+            onScroll(e) {
+                this.scrollTopValue = e.target.scrollTop
+            },
             onSort(sortType) {
                 switch (sortType) {
                     case '0-0':
@@ -116,6 +120,9 @@
         },
         created() {
             this._getGoodsData()
+        },
+        activated() {
+            this.$refs.goodsListWrapper.scrollTop = this.scrollTopValue
         },
         components: {
             NavigationBar,

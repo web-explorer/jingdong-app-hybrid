@@ -11,7 +11,7 @@
         </navigation-bar>
         <parallax class="goods-detail-body" @parallaxScroll="onParallaxScroll">
             <template v-slot:parallax-slow>
-                <carrousel v-if="goods && goods.swiperPics" :sliderList="swiperList"></carrousel>
+                <carrousel v-if="goods && goods.swiperImgs" :sliderList="swiperList"></carrousel>
             </template>
             <template v-slot:parallax-normal>
                 <div class="goods-detail-body-content">
@@ -35,7 +35,7 @@
                         </ul>
                     </div>
                     <div class="goods-detail-body-content-detail-pics">
-                        <img class="goods-detail-body-content-detail-pics-item" v-for="detailPic in goods.detailPics" :src="detailPic">
+                        <img class="goods-detail-body-content-detail-pics-item" v-for="detailPic in goods.detailImgs" :src="detailPic">
                     </div>
                 </div>
             </template>
@@ -56,7 +56,7 @@
     export default {
         data() {
           return {
-              goods: null,
+              goods: {},
               navBarStyle: {
                   position: 'fixed'
               },
@@ -73,6 +73,15 @@
           }
         },
         methods: {
+            getGoodsDetail() {
+                this.$http.get('/goodsDetail', {
+                    params: {
+                        goodsId: this.$route.query.id
+                    }
+                }).then(res => {
+                    this.goods = res.data.goodsData
+                })
+            },
             onParallaxScroll(scrollTop) {
                 this.scrollTopValue = scrollTop
             },
@@ -82,7 +91,7 @@
         },
         computed: {
             swiperList() {
-                return this.goods.swiperPics.map(item => {
+                return this.goods.swiperImgs.map(item => {
                     return {picUrl: item}
                 })
             },
@@ -109,7 +118,8 @@
             }
         },
         created() {
-            this.goods = this.$route.params.goods
+            // this.goods = this.$route.params.goods
+            this.getGoodsDetail()
         },
         components: {
             NavigationBar,

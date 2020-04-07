@@ -1,5 +1,5 @@
 <template>
-    <div class="home" @scroll="onScroll">
+    <div class="home" @scroll="onScroll" ref="home">
         <navigation-bar :navBarStyle="navBarStyle" :isShowBack="false">
             <!-- 左侧插槽 -->
             <template v-slot:nav-left>
@@ -201,6 +201,13 @@
         created() {
             this.navBarCurrentSlotStyle = this.navBarSlotStyle.normal
             this._getHomeData()
+        },
+        /*
+        * keep-alive组件被激活的时候调用
+        * 去为滑动模块指定滑动距离
+        * */
+        activated() {
+            this.$refs.home.scrollTop = this.scrollTopValue
         },
         components: {
             Carrousel,

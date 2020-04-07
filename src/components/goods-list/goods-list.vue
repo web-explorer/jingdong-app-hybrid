@@ -34,8 +34,11 @@
                    name: 'goods-detail',
                    params: {
                        jumpType: 1,
-                       goods
-                   }
+                       // goods
+                   },
+                    query: {
+                       id: goods.id
+                    }
                 });
             }
         },
