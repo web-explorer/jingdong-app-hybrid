@@ -172,6 +172,7 @@
                 let goodsList = []
                 for(let i=0; i<goodsData.length; i++){
                     let goods = {}
+                    goods.id = goodsData[i].id
                     goods.isDirect = goodsData[i].isDirect
                     goods.isHave = goodsData[i].isHave
                     goods.pic = goodsData[i].img

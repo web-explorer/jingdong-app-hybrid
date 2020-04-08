@@ -76,6 +76,6 @@
         }
     }
     .bottom-line {
-        border-bottom: 1px solid #666;
+        border-bottom: 1px solid #999;
     }
 </style>

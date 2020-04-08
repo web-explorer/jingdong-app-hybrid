@@ -43,6 +43,12 @@
           this.virtualTaskStack.pop()
         }
 
+        /*
+        * 初始化虚拟任务栈
+        * */
+        if (to.params.clearTask) {
+          this.virtualTaskStack = ['m-main']
+        }
       }
     }
   }

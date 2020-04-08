@@ -39,7 +39,7 @@
             },
             paginationType: {
                 type: String,
-                default: 'fraction'
+                default: ''
             }
         },
         computed: {

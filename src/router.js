@@ -22,6 +22,21 @@ export default new Router({
       path: '/goodsDetail',
       name: 'goods-detail',
       component: () => import(/* webpackChunkName: "goods-detail" */ '@/views/goods-detail/goods-detail.vue')
+    },
+    {
+      path: '/buy',
+      name: 'buy',
+      component: () => import(/* webpackChunkName: "buy" */ '@/views/buy/buy.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ '@/views/login/login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import(/* webpackChunkName: "register" */ '@/views/register/register.vue')
     }
   ]
 })

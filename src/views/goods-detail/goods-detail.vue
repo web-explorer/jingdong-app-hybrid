@@ -41,8 +41,8 @@
             </template>
         </parallax>
         <div class="goods-detail-footer">
-            <div class="goods-detail-footer-btn add-cart">加入购物车</div>
-            <div class="goods-detail-footer-btn buy-now">立即购买</div>
+            <div class="goods-detail-footer-btn add-cart" @click="addCart">加入购物车</div>
+            <div class="goods-detail-footer-btn buy-now" @click="buyNow">立即购买</div>
         </div>
     </div>
 </template>
@@ -73,6 +73,29 @@
           }
         },
         methods: {
+            addCart() {
+                this.$store.commit('addShoppingData', this.goods)
+                alert('添加成功')
+                this.$router.push({
+                    name: 'm-main',
+                    params: {
+                        jumpType: 1,
+                        componentIndex: 1,
+                        clearTask: 1
+                    }
+                })
+            },
+            buyNow() {
+                this.$router.push({
+                    name: 'buy',
+                    params: {
+                        jumpType: 1
+                    },
+                    query: {
+                        id: this.$route.query.id
+                    }
+                });
+            },
             getGoodsDetail() {
                 this.$http.get('/goodsDetail', {
                     params: {

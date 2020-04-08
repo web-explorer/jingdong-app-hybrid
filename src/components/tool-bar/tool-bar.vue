@@ -41,6 +41,9 @@
                 }
                 this.selectItemIndex = index
                 this.$emit('changeToolBar', item.componentName)
+            },
+            pushFragment(index) {
+                this.onChangeToolBar(this.toolBarData[index], index)
             }
         },
         name: "tool-bar"

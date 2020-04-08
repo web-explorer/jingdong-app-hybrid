@@ -5,7 +5,7 @@
             <component :is="currentComponent"></component>
         </div>
         <div class="tool-bar-wrapper">
-            <tool-bar @changeToolBar="onChangeComponent"></tool-bar>
+            <tool-bar ref="toolBar" @changeToolBar="onChangeComponent"></tool-bar>
         </div>
     </div>
 </template>
@@ -23,7 +23,18 @@
         methods: {
             onChangeComponent(componentName) {
                 this.currentComponent = componentName
+            },
+            pushFragment() {
+                let componentIndex = this.$route.params.componentIndex
+                if (componentIndex === undefined) {
+                    return
+                } else {
+                    this.$refs.toolBar.pushFragment(componentIndex)
+                }
             }
+        },
+        activated() {
+            this.pushFragment()
         },
         components: {
             ToolBar,
