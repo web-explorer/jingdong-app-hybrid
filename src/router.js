@@ -16,7 +16,7 @@ export default new Router({
     {
       path: '/searchResult',
       name: 'search-result',
-      component: () => import(/* webpackChunkName: "search-result" */ '@/views/search-result/search-result.vue')
+      component: () => import(/* webpackChunkName: "search-result" */ '@/views/search-result/search-result.vue') // magic comment
     },
     {
       path: '/goodsDetail',

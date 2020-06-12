@@ -15,10 +15,14 @@ module.exports = {
     },
     configureWebpack: {
         plugins: [
+            /*
+            * webpack Shimming
+            * 模块只要使用到了变量 $、jQuery 就会在该模块的顶部自动引入jquery包（import $ from 'jquery'、import jQuery from 'jquery'）
+            * */
             new webpack.ProvidePlugin({
                 $:"jquery",
                 jQuery:"jquery",
-                "windows.jQuery":"jquery"
+                _: 'lodash'
             })
 
         ]
