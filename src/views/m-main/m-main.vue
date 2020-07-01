@@ -39,8 +39,8 @@
         components: {
             ToolBar,
             Home,
-            Shopping: () => import('./shopping/shopping.vue'), // 异步组件的引入方式
-            My: () => import('./my/my.vue')
+            Shopping: () => import(/* webpackChunkName: "shopping" */ './shopping/shopping.vue'), // 异步组件的引入方式
+            My: () => import(/* webpackChunkName: "My" */ './my/my.vue')
         },
         name: "m-main"
     }
