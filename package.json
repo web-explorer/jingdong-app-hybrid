@@ -20,7 +20,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "postcss-loader": "^3.0.0",
     "postcss-plugin-px2rem": "^0.8.1",
     "sass": "^1.18.0",
