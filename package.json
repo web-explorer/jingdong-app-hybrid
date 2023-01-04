@@ -18,8 +18,8 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "lodash": "^4.17.15",
     "postcss-loader": "^3.0.0",
     "postcss-plugin-px2rem": "^0.8.1",
